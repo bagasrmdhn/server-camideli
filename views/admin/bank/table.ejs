@@ -1,0 +1,65 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#add-modal"
+    >
+      Add
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Bank Name</th>
+            <th>Bank Account Number</th>
+            <th>Bank Account Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bank.forEach(function(Bank, index) { %>
+          <tr>
+            <td><%= index+1 %></td>
+            <td><%= Bank.name %></td>
+            <td><%= Bank.accountNumber %></td>
+            <td><%= Bank.bankName %></td>
+            <td>
+              <form
+                action="/admin/bank/<%= bank[index].id
+              %>?_method=DELETE"
+                method="POST"
+              >
+                <a
+                  href="javascript:void()"
+                  type="button"
+                  class="btn btn-warning btn-circle btn-sm button-update"
+                  data-id="<%= bank[index].id %>"
+                  data-name="<%= bank[index].name %>"
+                  data-accountnumber="<%= bank[index].accountNumber %>"
+                  data-bankname="<%= bank[index].bankName %>"
+                  ><i class="fa fa-edit"></i>
+                </a>
+                <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
