@@ -8,7 +8,7 @@ module.exports = {
   landingPage: async (req, res) => {
     try {
       const item = await Item.find()
-        .select("_id name price imageId categoryId")
+        .select("_id name  imageId categoryId")
         .populate({ path: "categoryId", select: "_id " })
         .populate({
           path: "imageId",
