@@ -14,7 +14,8 @@ module.exports = {
           path: "imageId",
           limit: 1,
           select: "_id imageUrl",
-        });
+        })
+        .sort({ _id: -1 });
       const category = await Category.find().select("_id name");
 
       res.status(200).json({ category, item });
