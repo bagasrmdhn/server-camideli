@@ -5,23 +5,23 @@ const Member = require("../models/Member");
 const Order = require("../models/Order");
 
 module.exports = {
-  landingPage: async (req, res) => {
-    try {
-      const item = await Item.find()
-        .select("_id name price imageId categoryId")
-        .populate({ path: "categoryId", select: "_id name" })
-        .populate({
-          path: "imageId",
-          limit: 1,
-          select: "_id imageUrl",
-        });
-      const category = await Category.find().select("_id name");
+  // landingPage: async (req, res) => {
+  //   try {
+  //     const item = await Item.find()
+  //       .select("_id name price imageId categoryId")
+  //       .populate({ path: "categoryId", select: "_id name" })
+  //       .populate({
+  //         path: "imageId",
+  //         limit: 1,
+  //         select: "_id imageUrl",
+  //       });
+  //     const category = await Category.find().select("_id name");
 
-      res.status(200).json({ category, item });
-    } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
-    }
-  },
+  //     res.status(200).json({ category, item });
+  //   } catch (error) {
+  //     res.status(500).json({ message: "Internal Server Error" });
+  //   }
+  // },
 
   detailPage: async (req, res) => {
     try {
