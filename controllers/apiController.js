@@ -9,7 +9,7 @@ module.exports = {
     try {
       const item = await Item.find()
         .select("_id name price imageId categoryId")
-        .populate({ path: "categoryId", select: "_id name" })
+        .populate({ path: "categoryId", select: "_id " })
         .populate({
           path: "imageId",
           limit: 1,
