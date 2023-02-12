@@ -8,7 +8,7 @@ module.exports = {
   landingPage: async (req, res) => {
     try {
       const item = await Item.find()
-        .select("_id imageId categoryId")
+        .select("_id name price imageId categoryId")
         .populate({ path: "categoryId", select: "_id " })
         .populate({
           path: "imageId",
@@ -17,7 +17,7 @@ module.exports = {
         });
       const category = await Category.find().select("_id name");
 
-      res.status(200).json({ category, item });
+      res.status(200).json({ item });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
     }
