@@ -12,7 +12,6 @@ module.exports = {
         .populate({ path: "categoryId", select: "_id name" })
         .populate({
           path: "imageId",
-          limit: 1,
           select: "_id imageUrl",
         })
         .sort({ _id: -1 });
