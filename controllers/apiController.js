@@ -70,12 +70,12 @@ module.exports = {
         accountHolder === undefined ||
         bankFrom === undefined
       ) {
-        return res.status(404).json({ message: error.message });
+        return res.status(404).json({ message: "Please complete all field" });
       }
 
       const item = await Item.findOne({ _id: idItem });
       if (!item) {
-        return res.status(404).json({ message: error.message });
+        return res.status(404).json({ message: "Item not found" });
       }
 
       item.sumOrder += 1;
