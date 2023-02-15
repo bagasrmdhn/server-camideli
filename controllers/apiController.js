@@ -13,6 +13,7 @@ module.exports = {
         .populate({
           path: "imageId",
           select: "_id imageUrl",
+          limit: 1,
         })
         .sort({ _id: -1 });
       const category = await Category.find().select("_id name");
