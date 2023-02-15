@@ -47,6 +47,9 @@ module.exports = {
       req.session.user = {
         id: user.id,
         username: user.username,
+        cookie: {
+          maxAge: 1000 * 60 * 60, // Session timeout in milliseconds (1 hour)
+        },
       };
 
       res.redirect("/admin/dashboard");
