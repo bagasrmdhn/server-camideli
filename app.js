@@ -8,6 +8,8 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
 const cors = require("cors");
+const dotenv = require("dotenv");
+var bodyParser = require("body-parser");
 
 //import mongoose
 var mongoose = require("mongoose");
@@ -25,6 +27,7 @@ var usersRouter = require("./routes/users");
 // router admin
 var adminRouter = require("./routes/admin");
 const apiRouter = require("./routes/api");
+dotenv.config();
 var app = express();
 
 // view engine setup
@@ -40,7 +43,8 @@ app.use(
   })
 );
 app.use(flash());
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
