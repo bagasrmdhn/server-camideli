@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const cors = require("cors");
 const dotenv = require("dotenv");
 var bodyParser = require("body-parser");
+const MongoDBStore = require("connect-mongodb-session")(session);
 
 //import mongoose
 var mongoose = require("mongoose");
@@ -21,6 +22,11 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
+
+const store = new MongoDBStore({
+  uri: "mongodb+srv://camideli:Bara1234@cluster0.10owyxz.mongodb.net/db_camideli?retryWrites=true&w=majority",
+  collection: "sessions",
+});
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -34,6 +40,14 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
+app.use(
+  session({
+    secret: "my-secret",
+    resave: false,
+    saveUninitialized: true,
+    store: store,
+  })
+);
 app.use(
   session({
     secret: "keyboard cat",
