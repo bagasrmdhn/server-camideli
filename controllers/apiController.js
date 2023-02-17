@@ -26,10 +26,10 @@ module.exports = {
   signIn: async (req, res) => {
     try {
       const { email, password } = req.body;
-      console.log(req.body);
+
       // Check if user with given email exists
       const user = await Users.findOne({ email });
-      console.log(user);
+
       if (!user) {
         return res.status(401).json({ message: "Invalid email or password" });
       }
@@ -44,7 +44,7 @@ module.exports = {
       const token = jwt.sign({ id: user._id }, "process.env.JWT_SECRET", {
         expiresIn: "1d",
       });
-
+      req.session.user = user;
       // // Return the token to the client
       res.status(200).json({
         token,
@@ -61,6 +61,31 @@ module.exports = {
     }
   },
 
+  getMe: async (req, res) => {
+    if (!req.session.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const user = await Users.findOne({ _id: req.session.user._id });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({
+      id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      // message: req.session.user,
+    });
+  },
+
+  logOut: async (req, res) => {
+    console.log(req.session);
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(400).json({ message: err.message });
+      }
+      res.status(200).json({ message: "Logout Success" });
+    });
+  },
   landingPage: async (req, res) => {
     try {
       const item = await Item.find()
