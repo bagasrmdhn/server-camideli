@@ -53,6 +53,7 @@ module.exports = {
           fullName: user.fullName,
           email: user.email,
         },
+        message: "Login Success",
       });
     } catch (error) {
       console.error(error);
