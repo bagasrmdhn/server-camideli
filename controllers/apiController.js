@@ -44,7 +44,10 @@ module.exports = {
       const token = jwt.sign({ id: user._id }, "process.env.JWT_SECRET", {
         expiresIn: "1d",
       });
-      req.session.user = user;
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
       // // Return the token to the client
       res.status(200).json({
         token,

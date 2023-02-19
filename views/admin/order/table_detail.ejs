@@ -67,7 +67,7 @@
                 <td><%= order.payments.bankFrom %></td>
                 <td><%= order.itemId[x].name %></td>
                 <td><%= order.itemId[x].quantity %></td>
-                <td><%= order.total %></td>
+                <td><%= order.total.toLocaleString() %></td>
               </tr>
               <% } %>
             </tbody>
