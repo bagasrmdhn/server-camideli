@@ -3,6 +3,92 @@ const Item = require("../models/Item");
 const Bank = require("../models/Bank");
 const Member = require("../models/Member");
 const Order = require("../models/Order");
+const Users = require("../models/Users");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
+module.exports = {
+  signUp: async (req, res) => {
+    try {
+      const { fullName, email, password } = req.body;
+
+      // const hashedPassword = await bcrypt.hash(password, 10);
+      const user = new Users({ fullName, email, password });
+      await user.save();
+      res.status(201).json({ message: "User created successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server Errors" });
+    }
+  },
+
+  signIn: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      // Check if user with given email exists
+      const user = await Users.findOne({ email });
+
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      // Check if password is correct
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      // Create and sign a JWT token with user ID
+      const token = jwt.sign({ id: user._id }, "process.env.JWT_SECRET", {
+        expiresIn: "1d",
+      });
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      // // Return the token to the client
+      res.status(200).json({
+        token,
+        user: {
+          id: user._id,
+          fullName: user.fullName,
+          email: user.email,
+        },
+        message: "Login Success",
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  getMe: async (req, res) => {
+    if (!req.session.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const user = await Users.findOne({ _id: req.session.user._id });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({
+      id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      // message: req.session.user,
+    });
+  },
+
+  logOut: async (req, res) => {
+    console.log(req.session);
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(400).json({ message: err.message });
+      }
+      res.status(200).json({ message: "Logout Success" });
+    });
+  },
   landingPage: async (req, res) => {
     try {
       const item = await Item.find()
