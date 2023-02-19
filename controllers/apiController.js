@@ -164,7 +164,7 @@ module.exports = {
         total === undefined
       ) {
         return res.status(404).json({
-          message: `${items}  ${orderDate} ${firstName} ${lastName} ${email} ${phoneNumber} ${accountHolder} ${bankFrom} ${bankTo} ${address} ${city} ${total}`,
+          message: `Please complete the form`,
         });
       }
 
