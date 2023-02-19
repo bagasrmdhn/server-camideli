@@ -48,7 +48,6 @@ module.exports = {
         id: user.id,
         username: user.username,
       };
-
       res.redirect("/admin/dashboard");
     } catch (error) {
       res.redirect("/admin/signin");

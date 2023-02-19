@@ -1,0 +1,19 @@
+
+
+###
+# 2. Get all members
+###
+POST http://localhost:3000/api/v1/member/sign-in
+Content-Type: application/json
+
+{
+    "email": "samira@gmail.com",
+    "password" : "samira123"
+}
+
+
+###
+GET  http://localhost:3000/api/v1/member/get-me
+
+###
+Delete  http://localhost:3000/api/v1/member/logout

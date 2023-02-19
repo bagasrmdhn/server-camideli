@@ -3,21 +3,6 @@ const Item = require("../models/Item");
 const Bank = require("../models/Bank");
 const Member = require("../models/Member");
 const Order = require("../models/Order");
-const { $where } = require("../models/Category");
-
-module.exports = {
-  transactionHistory: async (req, res) => {
-    try {
-      const { memberId } = req.params;
-      const orders = await Order.find({ memberId })
-        .select("_id orderDate invoice total status")
-        .sort({ orderDate: -1 });
-      res.status(200).json({ orders });
-    } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
-    }
-  },
-
   landingPage: async (req, res) => {
     try {
       const item = await Item.find()
@@ -25,7 +10,6 @@ module.exports = {
         .populate({ path: "categoryId", select: "_id name" })
         .populate({
           path: "imageId",
-          limit: 1,
           select: "_id imageUrl",
         })
         .sort({ _id: -1 });
@@ -73,6 +57,7 @@ module.exports = {
         address,
         city,
       } = req.body;
+      console.log(req.body);
       if (!req.file) {
         return res.status(404).json({ message: "Image not found" });
       }
