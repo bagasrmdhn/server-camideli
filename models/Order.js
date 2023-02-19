@@ -10,8 +10,16 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  City: {
+    type: String,
+  },
+
+  address: {
+    type: String,
+  },
+
   // This is the new field
-  itemId: [
+  items: [
     {
       _id: {
         type: ObjectId,
@@ -23,11 +31,12 @@ const orderSchema = new mongoose.Schema({
       },
       price: {
         type: Number,
-        required: true,
       },
       quantity: {
         type: Number,
-        required: true,
+      },
+      totalPrice: {
+        type: Number,
       },
     },
   ],
@@ -46,6 +55,9 @@ const orderSchema = new mongoose.Schema({
   payments: {
     // This is the new field
     proofPayment: {
+      type: String,
+    },
+    bankTo: {
       type: String,
     },
     bankFrom: {

@@ -5,4 +5,5 @@ const { uploadSingle } = require("../middleware/multer");
 router.get("/landing-page", apiController.landingPage);
 router.get("/detail-page/:id", apiController.detailPage);
 router.post("/order-page", uploadSingle, apiController.orderPage);
+router.get("/transaction-history/:memberId", apiController.transactionHistory);
 module.exports = router;
