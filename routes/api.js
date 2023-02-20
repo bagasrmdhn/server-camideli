@@ -9,5 +9,6 @@ router.get("/get-me", uploadSingle, apiController.getMe);
 router.delete("/logout", uploadSingle, apiController.logOut);
 router.get("/detail-page/:id", apiController.detailPage);
 router.post("/order-page", uploadSingle, apiController.orderPage);
+router.get("/history/:id", uploadSingle, apiController.historyTransaction);
 
 module.exports = router;

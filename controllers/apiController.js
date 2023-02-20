@@ -212,4 +212,18 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  historyTransaction: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await Users.findById(id);
+      const order = await Order.find({ userId: user.id }).populate({
+        path: "memberId",
+        select: "_id firstName lastName email",
+      });
+      res.status(200).json({ order });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
