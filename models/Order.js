@@ -48,6 +48,10 @@ const orderSchema = new mongoose.Schema({
     type: ObjectId,
     ref: "Member",
   },
+  userId: {
+    type: ObjectId,
+    ref: "Users",
+  },
   bankId: {
     type: ObjectId,
     ref: "Bank",

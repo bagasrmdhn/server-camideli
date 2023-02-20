@@ -130,6 +130,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const {
+        userId,
         items,
         total,
         orderDate,
@@ -177,6 +178,10 @@ module.exports = {
         phoneNumber,
       });
 
+      const user = await Users.findById(userId);
+
+      console.log(user);
+
       const newOrder = {
         orderDate,
         invoice,
@@ -189,6 +194,7 @@ module.exports = {
         })),
         total,
         memberId: member.id,
+        userId: user.id,
         payments: {
           proofPayment: `images/${req.file.filename}`,
           bankFrom: bankFrom,
