@@ -48,10 +48,10 @@
         <div class="table-responsive">
           <div class="d-flex row justify-content-between">
             <div class="col-md-6">
-              <h5>Order Detail</h5>
+              <h5 class="font-weight-bold">Order Detail</h5>
             </div>
             <div class="col-md-6">
-              <h5>Payment Detail</h5>
+              <h5 class="font-weight-bold">Payment Detail</h5>
             </div>
           </div>
           <div class="d-flex row justify-content-between">
@@ -94,22 +94,18 @@
               </table>
             </div>
           </div>
-          <div class="d-flex row justify-content-between">
-            <div class="col-md-6">
-              <h5>Member Detail</h5>
+
+            <div class="col-md-12">
+              <h5 class="font-weight-bold">Member Detail</h5>
             </div>
-            <div class="col-md-6">
-              <h5>Item Detail</h5>
-            </div>
-          </div>
-          <div class="d-flex row justify-content-between">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <table class="table" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Member Name</th>
                     <th>Phone Number</th>
                     <th>Email</th>
+                    <th>Address</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -120,11 +116,16 @@
                     </td>
                     <td><%= order.memberId.phoneNumber %></td>
                     <td><%= order.memberId.email %></td>
+                    <td><%= order.address %></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-md-12">
+              <h5 class="font-weight-bold">Item Detail</h5>
+            </div>
+            <div class="col-md-12">
               <table class="table" width="100%" cellspacing="0">
                 <thead>
                   <tr>
@@ -150,7 +151,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
+        
         </div>
       </div>
     </div>

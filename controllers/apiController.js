@@ -185,6 +185,7 @@ module.exports = {
       const newOrder = {
         orderDate,
         invoice,
+        address,
         items: items.map((item) => ({
           _id: item.id,
           name: item.name,
